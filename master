@@ -1,0 +1,52 @@
+// A program to create a Binary Search Tree for CSCI 169: Programming Languages
+
+package greeter
+
+object HW9 {
+println("Welcome to the Scala worksheet") //> Welcome to the Scala worksheet
+
+def findlast[T](xs:List[T], x:T):Int = xs match{
+case Nil => -1
+case y::ys => if((x==y) && (ys.contains(x) == false)) 1 else 1+findlast(ys,x)
+} //> findlast: [T](xs: List[T], x: T)Int
+
+
+def adjsublist2(xs:List[Int]):List[List[Int]] = {
+def iter(xs:List[Int],i:Int,j:Int,k:Int):List[List[Int]] = xs match {
+case Nil => Nil
+case y::ys => if(j!=0) xs.take(i)::iter(ys,i,j-1,k) else iter(xs,i+1,k-1,k-1)
+}
+iter(xs,1,xs.length,xs.length)
+} //> adjsublist2: (xs: List[Int])List[List[Int]]
+
+def adjsublist(xs:List[Int]):List[List[Int]] = {
+def iter(ls:List[Int], i:Int, j:Int):List[List[Int]] = {
+if(ls.isEmpty) Nil
+else if(i!=j)List(xs.take(j), xs.drop(i))
+else iter(ls.tail,i+1,j-1)
+}
+iter(xs,1,xs.length)
+} //> adjsublist: (xs: List[Int])List[List[Int]]
+
+def count[T](xs:List[T], x:T):Int = xs match{
+case Nil => 0
+case y::ys => (if(x==y) 1 else 0) +count(ys, x)
+} //> count: [T](xs: List[T], x: T)Int
+
+
+def test(xs:List[Int]):List[List[Int]] = {
+def iter(ls:List[Int], i:Int):List[List[Int]] = xs match {
+case Nil => Nil
+case y::ys => xs.takeWhile(x=>x!=Nil)::iter(ys,i+1)
+}
+iter(xs,1)
+} //> test: (xs: List[Int])List[List[Int]]
+def removemod[T](xs:List[T], x:T):List[T] = xs match{
+case Nil => Nil
+case y::ys => if(x!=y) removemod(ys, x) else x::removemod(ys, x)
+} //> removemod: [T](xs: List[T], x: T)List[T]
+
+def pack[T](xs:List[T]): List[List[T]] = xs match {
+case Nil => Nil
+case y::ys => xs.takeWhile(x=>y==x)::pack(ys.dropWhile(x=>y==x))
+} //> pack: [T](xs: List[T])List[List[T]]
